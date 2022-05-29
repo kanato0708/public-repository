@@ -11,6 +11,23 @@
     <head>
         <title>ブラウザメモ帳※保存はできない</title>
     </head>
+    
+    <script>
+    function save() {
+      // テキストエリアより文字列を取得
+      const txt = document.getElementById('txt').value;
+      if (!txt) { return; }
+
+      // 文字列をBlob化
+      const blob = new Blob([txt], { type: 'text/plain' });
+
+      // ダウンロード用のaタグ生成
+      const a = document.createElement('a');
+      a.href =  URL.createObjectURL(blob);
+      a.download = 'sample.txt';
+      a.click();
+    };
+  </script>
 
     <body>
 
@@ -32,8 +49,11 @@
     <form>
     <input type="text" size="65" placeholder="タイトルを入力">
     <br>
-    <textarea rows="13" cols="110"></textarea>
-
+    <textarea id="txt" rows="13" cols="110"></textarea>
+    <br>
+    <button onclick="save();">テキストをTXTファイルで書き出す</button>
+        
+    <br>
     <br>
 
     <input type="text" size="65" placeholder="タイトルを入力">
